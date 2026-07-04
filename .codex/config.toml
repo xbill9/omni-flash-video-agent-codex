@@ -1,0 +1,24 @@
+[mcp_servers.omni-video-agent]
+command = "/home/xbill/.pyenv/shims/python"
+args = ["/home/xbill/omni-flash-video-agent-codex/server.py"]
+enabled = true
+[mcp_servers.omni-video-agent.tools.generate_video]
+approval_mode = "approve"
+
+[mcp_servers.omni-video-agent.tools.upload_to_youtube]
+approval_mode = "approve"
+
+[mcp_servers.omni-video-agent.tools.edit_video]
+approval_mode = "approve"
+
+[mcp_servers.omni-video-agent.tools.animate_image]
+approval_mode = "approve"
+
+[mcp_servers.omni-video-agent.tools.interpolate_images]
+approval_mode = "approve"
+
+[mcp_servers.omni-video-agent.tools.generate_with_subjects]
+approval_mode = "approve"
+
+[mcp_servers.omni-video-agent.tools.edit_user_video]
+approval_mode = "approve"
