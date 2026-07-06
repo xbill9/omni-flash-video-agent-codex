@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "ask": [
+      "mcp__omni-video-agent__generate_video",
+      "mcp__omni-video-agent__upload_to_youtube",
+      "mcp__omni-video-agent__edit_video",
+      "mcp__omni-video-agent__animate_image",
+      "mcp__omni-video-agent__interpolate_images",
+      "mcp__omni-video-agent__generate_with_subjects",
+      "mcp__omni-video-agent__edit_user_video"
+    ]
+  }
+}

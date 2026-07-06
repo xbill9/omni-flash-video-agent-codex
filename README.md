@@ -45,15 +45,15 @@ graph TD
 
 ## 🛠 Project Structure
 
-- **[server.py](file:///home/xbill/omni-flash-video-agent/server.py)**: FastMCP server exposing high-level tools to AI agents for video creation, editing, and utility.
-- **[generate_gemma_video.py](file:///home/xbill/omni-flash-video-agent/generate_gemma_video.py)**: Script demonstrating one-shot text-to-video generation.
-- **[update_gemma_video.py](file:///home/xbill/omni-flash-video-agent/update_gemma_video.py)**: Script demonstrating stateful, multi-turn video editing using `previous_interaction_id`.
-- **[test_agent.py](file:///home/xbill/omni-flash-video-agent/test_agent.py)**: Automated verification test suite validating file imports and server tool structures.
-- **[init.sh](file:///home/xbill/omni-flash-video-agent/init.sh)**: Interactive onboarding shell script to configure Google Cloud project, store Gemini API key, and set up Application Default Credentials (ADC).
-- **[set_env.sh](file:///home/xbill/omni-flash-video-agent/set_env.sh)**: Helper shell script to read and export Gemini/Google API credentials.
-- **[omni.md](file:///home/xbill/omni-flash-video-agent/omni.md)**: Official documentation and REST specifications for Gemini Omni Flash.
-- **[GEMINI.md](file:///home/xbill/omni-flash-video-agent/GEMINI.md)**: Cheat sheet and developer reference guide for the Interactions API.
-- **[requirements.txt](file:///home/xbill/omni-flash-video-agent/requirements.txt)**: Python dependencies.
+- **[server.py](file:///home/xbill/omni-flash-video-agent-claude/server.py)**: FastMCP server exposing high-level tools to AI agents for video creation, editing, and utility.
+- **[generate_gemma_video.py](file:///home/xbill/omni-flash-video-agent-claude/generate_gemma_video.py)**: Script demonstrating one-shot text-to-video generation.
+- **[update_gemma_video.py](file:///home/xbill/omni-flash-video-agent-claude/update_gemma_video.py)**: Script demonstrating stateful, multi-turn video editing using `previous_interaction_id`.
+- **[test_agent.py](file:///home/xbill/omni-flash-video-agent-claude/test_agent.py)**: Automated verification test suite validating file imports and server tool structures.
+- **[init.sh](file:///home/xbill/omni-flash-video-agent-claude/init.sh)**: Interactive onboarding shell script to configure Google Cloud project, store Gemini API key, and set up Application Default Credentials (ADC).
+- **[set_env.sh](file:///home/xbill/omni-flash-video-agent-claude/set_env.sh)**: Helper shell script to read and export Gemini/Google API credentials.
+- **[omni.md](file:///home/xbill/omni-flash-video-agent-claude/omni.md)**: Official documentation and REST specifications for Gemini Omni Flash.
+- **[GEMINI.md](file:///home/xbill/omni-flash-video-agent-claude/GEMINI.md)**: Cheat sheet and developer reference guide for the Interactions API.
+- **[requirements.txt](file:///home/xbill/omni-flash-video-agent-claude/requirements.txt)**: Python dependencies.
 
 ---
 
@@ -72,7 +72,7 @@ Configure your credentials and environment variables (`GEMINI_API_KEY` and `GOOG
 ```bash
 source set_env.sh
 ```
-This will automatically check for your API key in `~/gemini.key`, prompt you if missing, export both `GEMINI_API_KEY` and `GOOGLE_API_KEY`, and dynamically update `.codex/config.toml` with the correct MCP server path and environment keys.
+This will automatically check for your API key in `~/gemini.key`, prompt you if missing, install the Python dependencies, export both `GEMINI_API_KEY` and `GOOGLE_API_KEY`, and dynamically update `.mcp.json` with the correct MCP server path.
 
 
 
@@ -121,7 +121,7 @@ Add the following to your `claude_desktop_config.json`:
     "omni-flash-video-agent": {
       "command": "python",
       "args": [
-        "/absolute/path/to/omni-flash-video-agent/server.py"
+        "/absolute/path/to/omni-flash-video-agent-claude/server.py"
       ],
       "env": {
         "GEMINI_API_KEY": "your-api-key-here"

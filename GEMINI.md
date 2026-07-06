@@ -66,35 +66,35 @@ graph TD
 
 * **Text-to-Video (`generate_video`):**
   Generates a new video from scratch. Supports landscape (16:9) or portrait (9:16) aspect ratios and can return video bytes inline or via Gemini File API `uri`.
-  *See: [generate_gemma_video.py](file:///home/xbill/omni-flash-video-agent/generate_gemma_video.py) / [`generate_video` in server.py](file:///home/xbill/omni-flash-video-agent/server.py#L82-L111)*
+  *See: [generate_gemma_video.py](file:///home/xbill/omni-flash-video-agent-claude/generate_gemma_video.py) / [`generate_video` in server.py](file:///home/xbill/omni-flash-video-agent-claude/server.py#L105-L131)*
 
 * **Stateful Video Editing (`edit_video`):**
   Uses `previous_interaction_id` to refine an existing video session. Great for adding text overlays, modifying characters, or altering backgrounds while keeping the rest of the clip stable.
-  *See: [update_gemma_video.py](file:///home/xbill/omni-flash-video-agent/update_gemma_video.py) / [`edit_video` in server.py](file:///home/xbill/omni-flash-video-agent/server.py#L113-L142)*
+  *See: [update_gemma_video.py](file:///home/xbill/omni-flash-video-agent-claude/update_gemma_video.py) / [`edit_video` in server.py](file:///home/xbill/omni-flash-video-agent-claude/server.py#L135-L160)*
 
 * **Image-to-Video Animation (`animate_image`):**
   Accepts a local image (JPEG/PNG/WebP converted to base64) alongside a motion prompt to bring a static image to life.
-  *See: [`animate_image` in server.py](file:///home/xbill/omni-flash-video-agent/server.py#L144-L171)*
+  *See: [`animate_image` in server.py](file:///home/xbill/omni-flash-video-agent-claude/server.py#L164-L186)*
 
 * **Interpolation between Keyframes (`interpolate_images`):**
   Accepts a start image and an end image, creating a smooth visual transition or timelapse (e.g. day to night).
-  *See: [`interpolate_images` in server.py](file:///home/xbill/omni-flash-video-agent/server.py#L173-L204)*
+  *See: [`interpolate_images` in server.py](file:///home/xbill/omni-flash-video-agent-claude/server.py#L190-L216)*
 
 * **Subject-based Video Generation (`generate_with_subjects`):**
   Injects one or more subject reference images (such as characters or items) into the video generation prompt to maintain identity consistency.
-  *See: [`generate_with_subjects` in server.py](file:///home/xbill/omni-flash-video-agent/server.py#L206-L238)*
+  *See: [`generate_with_subjects` in server.py](file:///home/xbill/omni-flash-video-agent-claude/server.py#L220-L247)*
 
 * **User Video Upload & Edit (`edit_user_video`):**
   Uploads any standard local MP4 video file to the Gemini File API and processes it with a natural language instruction to edit or stylize the video.
-  *See: [`edit_user_video` in server.py](file:///home/xbill/omni-flash-video-agent/server.py#L240-L296)*
+  *See: [`edit_user_video` in server.py](file:///home/xbill/omni-flash-video-agent-claude/server.py#L251-L302)*
 
 * **YouTube Upload (`upload_to_youtube`):**
   Authenticates via Google OAuth2 and uploads local video files directly to YouTube, supporting title, description, category, and privacy settings.
-  *See: [`upload_to_youtube` in server.py](file:///home/xbill/omni-flash-video-agent/server.py#L299-L408)*
+  *See: [`upload_to_youtube` in server.py](file:///home/xbill/omni-flash-video-agent-claude/server.py#L306-L417)*
 
 * **On-Demand Onboarding and Guide (`get_help`):**
   Provides prompting best practices, delivery modes, and details of all available MCP tools in the Gemini Omni Flash Video Agent.
-  *See: [`get_help` in server.py](file:///home/xbill/omni-flash-video-agent/server.py#L411-L480)*
+  *See: [`get_help` in server.py](file:///home/xbill/omni-flash-video-agent-claude/server.py#L421-L489)*
 
 ---
 

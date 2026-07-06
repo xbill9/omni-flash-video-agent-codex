@@ -336,7 +336,7 @@ def upload_to_youtube(
             "2. Create a project and enable the 'YouTube Data API v3'.\n"
             "3. Go to 'Credentials', create an 'OAuth client ID' (Application type: Desktop App).\n"
             "4. Download the credentials JSON and save it as 'client_secrets.json' in the folder:\n"
-            "   /home/xbill/omni-flash-video-agent/client_secrets.json\n"
+            "   /home/xbill/omni-flash-video-agent-codex/client_secrets.json\n"
             "5. Run this tool again. It will prompt/open a browser window to authenticate on the first run."
         )
 

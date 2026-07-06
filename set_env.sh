@@ -37,6 +37,28 @@ PYTHON_BIN="$(find_python)" || {
     return 1 2>/dev/null || exit 1
 }
 
+echo "🐍 Using Python: $PYTHON_BIN"
+
+# Install Python dependencies from requirements.txt
+install_dependencies() {
+    local req_file="$CURRENT_DIR/requirements.txt"
+
+    if [ ! -f "$req_file" ]; then
+        echo "⚠️  No requirements.txt found at $req_file; skipping dependency install."
+        return 0
+    fi
+
+    echo "📦 Installing Python dependencies from requirements.txt..."
+    if "$PYTHON_BIN" -m pip install --disable-pip-version-check -q -r "$req_file"; then
+        echo "✅ Python dependencies installed."
+    else
+        echo "❌ Failed to install Python dependencies. Try running: $PYTHON_BIN -m pip install -r \"$req_file\""
+        return 1
+    fi
+}
+
+install_dependencies || echo "⚠️  Continuing despite dependency install failure."
+
 # Check if the key file exists
 if [ -f "$KEY_FILE" ]; then
     GEMINI_API_KEY=$(cat "$KEY_FILE")
@@ -67,15 +89,10 @@ set +a
 
 echo "✅ Written API keys to $ENV_FILE"
 
-update_codex_mcp_config() {
-    local config_file="$CURRENT_DIR/.codex/config.toml"
+update_claude_mcp_config() {
+    local config_file="$CURRENT_DIR/.mcp.json"
 
-    if [ ! -f "$config_file" ]; then
-        echo "⚠️  Could not find $config_file to update."
-        return 0
-    fi
-
-    if CONFIG_FILE="$config_file" CURRENT_DIR="$CURRENT_DIR" PYTHON_BIN="$PYTHON_BIN" GEMINI_API_KEY="$GEMINI_API_KEY" "$PYTHON_BIN" -c '
+    if CONFIG_FILE="$config_file" CURRENT_DIR="$CURRENT_DIR" PYTHON_BIN="$PYTHON_BIN" "$PYTHON_BIN" -c '
 import json
 import os
 from pathlib import Path
@@ -83,47 +100,31 @@ from pathlib import Path
 config_file = Path(os.environ["CONFIG_FILE"])
 current_dir = os.environ["CURRENT_DIR"]
 python_bin = os.environ["PYTHON_BIN"]
-gemini_api_key = os.environ["GEMINI_API_KEY"]
 
-section = "[mcp_servers.omni-video-agent]"
+server_name = "omni-video-agent"
 server_path = os.path.join(current_dir, "server.py")
-server_lines = [
-    section,
-    f"command = {json.dumps(python_bin)}",
-    f"args = [{json.dumps(server_path)}]",
-    "enabled = true",
-]
 
-lines = config_file.read_text().splitlines()
-out = []
-i = 0
-inserted = False
+if config_file.exists():
+    try:
+        data = json.loads(config_file.read_text() or "{}")
+    except json.JSONDecodeError:
+        data = {}
+else:
+    data = {}
 
-while i < len(lines):
-    line = lines[i]
-    if line.strip() == section:
-        out.extend(server_lines)
-        inserted = True
-        i += 1
-        while i < len(lines) and not lines[i].lstrip().startswith("["):
-            i += 1
-        continue
-    out.append(line)
-    i += 1
+servers = data.setdefault("mcpServers", {})
+server = servers.setdefault(server_name, {})
+server["command"] = python_bin
+server["args"] = [server_path]
 
-if not inserted:
-    if out and out[-1].strip():
-        out.append("")
-    out.extend(server_lines)
-
-config_file.write_text("\n".join(out).rstrip() + "\n")
+config_file.write_text(json.dumps(data, indent=2) + "\n")
 '
     then
-        echo "✅ Updated $config_file with path and env keys."
+        echo "✅ Updated $config_file with python path and server path."
     else
         echo "❌ Failed to update $config_file."
         return 1
     fi
 }
 
-update_codex_mcp_config
+update_claude_mcp_config
